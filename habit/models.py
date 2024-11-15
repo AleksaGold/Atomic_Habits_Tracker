@@ -1,3 +1,4 @@
+from django.core.validators import MaxValueValidator
 from django.db import models
 
 from config import settings
@@ -30,9 +31,8 @@ class Condition(models.Model):
     number_of_repetitions = models.PositiveSmallIntegerField(
         verbose_name="Количество повторений"
     )
-    minutes_to_complete = models.PositiveSmallIntegerField(
-        verbose_name="Время на выполнение привычки"
-    )
+    seconds_to_complete = models.PositiveSmallIntegerField(validators=[MaxValueValidator(120)],
+                                                           verbose_name="Время на выполнение привычки")
 
     class Meta:
         verbose_name = "Условие выполнения привычки"
@@ -116,8 +116,8 @@ class Habit(models.Model):
     )
 
     class Meta:
-        verbose_name = "Полезная привычка"
-        verbose_name_plural = "Полезные привычки"
+        verbose_name = "Привычка"
+        verbose_name_plural = "Привычки"
         ordering = ("name",)
 
     def __str__(self):

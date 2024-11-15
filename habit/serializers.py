@@ -1,6 +1,8 @@
+from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from habit.models import Condition, Reward, Habit
+from habit.validators import validate_compensation, validate_associated_habit, validate_pleasant_habit
 
 
 class ConditionSerializer(ModelSerializer):
@@ -19,8 +21,16 @@ class RewardSerializer(ModelSerializer):
 
 class HabitSerializer(ModelSerializer):
     """Сериализатор для модели Habit."""
-    # condition = ConditionSerializer(many=False)
-    # reward = RewardSerializer(many=False)
+
+    class Meta:
+        model = Habit
+        fields = "__all__"
+        validators = [validate_compensation, validate_associated_habit, validate_pleasant_habit]
+
+
+class HabitDetailSerializer(ModelSerializer):
+    """Сериализатор для одного объекта Habit."""
+    condition = ConditionSerializer(read_only=True)
 
     class Meta:
         model = Habit
