@@ -9,14 +9,26 @@ class ConditionSerializer(ModelSerializer):
     """Сериализатор для модели Condition."""
     class Meta:
         model = Condition
-        fields = "__all__"
+        fields = (
+            "id",
+            "place",
+            "start_time",
+            "frequency",
+            "number_of_repetitions",
+            "seconds_to_complete",
+        )
 
 
 class RewardSerializer(ModelSerializer):
     """Сериализатор для модели Reward."""
     class Meta:
         model = Reward
-        fields = "__all__"
+        fields = (
+            "id",
+            "name",
+            "owner",
+            "is_public",
+        )
 
 
 class HabitSerializer(ModelSerializer):
@@ -24,7 +36,16 @@ class HabitSerializer(ModelSerializer):
 
     class Meta:
         model = Habit
-        fields = "__all__"
+        fields = (
+            "id",
+            "name",
+            "owner",
+            "is_pleasant",
+            "is_public",
+            "associated_habit",
+            "reward",
+            "condition",
+        )
         validators = [validate_compensation, validate_associated_habit, validate_pleasant_habit]
 
 
