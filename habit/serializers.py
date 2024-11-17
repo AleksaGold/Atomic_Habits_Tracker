@@ -1,4 +1,3 @@
-from rest_framework import serializers
 from rest_framework.serializers import ModelSerializer
 
 from habit.models import Condition, Reward, Habit
@@ -14,7 +13,6 @@ class ConditionSerializer(ModelSerializer):
             "place",
             "start_time",
             "frequency",
-            "number_of_repetitions",
             "seconds_to_complete",
         )
 
@@ -46,6 +44,7 @@ class HabitSerializer(ModelSerializer):
             "reward",
             "condition",
         )
+
         validators = [validate_compensation, validate_associated_habit, validate_pleasant_habit]
 
 

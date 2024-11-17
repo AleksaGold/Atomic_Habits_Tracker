@@ -1,4 +1,4 @@
-from django.core.validators import MaxValueValidator
+from django.core.validators import MaxValueValidator, MinValueValidator
 from django.db import models
 
 from config import settings
@@ -9,27 +9,16 @@ NULLABLE = {"blank": True, "null": True}
 class Condition(models.Model):
     """Класс для описания модели Conditions."""
 
-    DAILY = "daily"
-    WEEKLY = "weekly"
-    HABIT_FREQUENCY = [
-        (DAILY, "ежедневная"),
-        (WEEKLY, "еженедельная"),
-    ]
-
     place = models.CharField(
-        max_length=150, verbose_name="Место выполнения", **NULLABLE
+        max_length=150, verbose_name="Место выполнения"
     )
     start_time = models.TimeField(
         auto_now=False, verbose_name="Время начала выполнения привычки"
     )
-    frequency = models.CharField(
-        max_length=20,
-        choices=HABIT_FREQUENCY,
-        verbose_name="Периодичность выполнения",
-        default="daily",
-    )
-    number_of_repetitions = models.PositiveSmallIntegerField(
-        verbose_name="Количество повторений"
+    frequency = models.PositiveSmallIntegerField(
+        verbose_name="Периодичность выполнения в днях",
+        default=1,
+        validators=[MaxValueValidator(7), MinValueValidator(1)]
     )
     seconds_to_complete = models.PositiveSmallIntegerField(validators=[MaxValueValidator(120)],
                                                            verbose_name="Время на выполнение привычки")
@@ -101,7 +90,7 @@ class Habit(models.Model):
         related_name="habits",
     )
     reward = models.ForeignKey(
-        Reward,
+        "habit.Reward",
         on_delete=models.CASCADE,
         verbose_name="Вознаграждение",
         **NULLABLE,
@@ -109,10 +98,13 @@ class Habit(models.Model):
     )
 
     condition = models.ForeignKey(
-        Condition,
+        "habit.Condition",
         on_delete=models.CASCADE,
         verbose_name="Условия выполнения привычки",
         related_name="habits",
+    )
+    next_sending = models.DateTimeField(
+        auto_now=False, verbose_name="Дата следующей отправки уведомления в Telegram", **NULLABLE
     )
 
     class Meta:

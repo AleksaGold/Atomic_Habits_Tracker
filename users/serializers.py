@@ -12,5 +12,6 @@ class UserSerializer(ModelSerializer):
             "id",
             "is_superuser",
             "email",
+            "tg_chat_id",
             "is_active",
         )

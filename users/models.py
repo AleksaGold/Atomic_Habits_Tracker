@@ -14,8 +14,8 @@ class User(AbstractUser):
         upload_to="users/avatars", verbose_name="Аватар", **NULLABLE
     )
     token = models.CharField(max_length=100, verbose_name="Токен", **NULLABLE)
-    tg_nickname = models.CharField(
-        max_length=50, verbose_name="Telegram ник", **NULLABLE
+    tg_chat_id = models.CharField(
+        max_length=50, verbose_name="Telegram ID", **NULLABLE
     )
 
     USERNAME_FIELD = "email"
