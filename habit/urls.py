@@ -1,8 +1,8 @@
-
 from rest_framework.routers import DefaultRouter
 
 from habit.apps import HabitConfig
-from habit.views import ConditionViewSet, RewardViewSet, HabitViewSet, RewardReadOnlyViewSet, HabitReadOnlyViewSet
+from habit.views import (ConditionViewSet, HabitReadOnlyViewSet, HabitViewSet,
+                         RewardReadOnlyViewSet, RewardViewSet)
 
 app_name = HabitConfig.name
 

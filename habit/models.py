@@ -9,19 +9,18 @@ NULLABLE = {"blank": True, "null": True}
 class Condition(models.Model):
     """Класс для описания модели Conditions."""
 
-    place = models.CharField(
-        max_length=150, verbose_name="Место выполнения"
-    )
+    place = models.CharField(max_length=150, verbose_name="Место выполнения")
     start_time = models.TimeField(
         auto_now=False, verbose_name="Время начала выполнения привычки"
     )
     frequency = models.PositiveSmallIntegerField(
         verbose_name="Периодичность выполнения в днях",
         default=1,
-        validators=[MaxValueValidator(7), MinValueValidator(1)]
+        validators=[MaxValueValidator(7), MinValueValidator(1)],
     )
-    seconds_to_complete = models.PositiveSmallIntegerField(validators=[MaxValueValidator(120)],
-                                                           verbose_name="Время на выполнение привычки")
+    seconds_to_complete = models.PositiveSmallIntegerField(
+        validators=[MaxValueValidator(120)], verbose_name="Время на выполнение привычки"
+    )
 
     class Meta:
         verbose_name = "Условие выполнения привычки"
@@ -104,7 +103,9 @@ class Habit(models.Model):
         related_name="habits",
     )
     next_sending = models.DateTimeField(
-        auto_now=False, verbose_name="Дата следующей отправки уведомления в Telegram", **NULLABLE
+        auto_now=False,
+        verbose_name="Дата следующей отправки уведомления в Telegram",
+        **NULLABLE,
     )
 
     class Meta:

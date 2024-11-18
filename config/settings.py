@@ -130,7 +130,7 @@ CELERY_BEAT_SCHEDULER = "django_celery_beat.schedulers:DatabaseScheduler"
 CELERY_BEAT_SCHEDULE = {
     "send_reminder_to_telegram": {
         "task": "habit.tasks.send_reminder_to_telegram",
-        "schedule": crontab(hour=0, minute=0),
+        "schedule": crontab(hour=0, minute=1),
     },
 }
 

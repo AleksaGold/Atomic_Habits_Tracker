@@ -1,16 +1,16 @@
-
-from rest_framework.permissions import IsAuthenticated, IsAdminUser
-
+from rest_framework.permissions import IsAdminUser, IsAuthenticated
 from rest_framework.viewsets import ModelViewSet, ReadOnlyModelViewSet
 
-from habit.models import Habit, Condition, Reward
+from habit.models import Condition, Habit, Reward
 from habit.paginators import CustomPagination
-from habit.serializers import HabitSerializer, ConditionSerializer, RewardSerializer, HabitDetailSerializer
+from habit.serializers import (ConditionSerializer, HabitDetailSerializer,
+                               HabitSerializer, RewardSerializer)
 from users.permissions import IsOwnerPermission
 
 
 class ConditionViewSet(ModelViewSet):
     """Вьюсет для работы с моделью Condition."""
+
     queryset = Condition.objects.all()
     serializer_class = ConditionSerializer
     pagination_class = CustomPagination
@@ -18,6 +18,7 @@ class ConditionViewSet(ModelViewSet):
 
 class RewardViewSet(ModelViewSet):
     """Вьюсет для работы с моделью Reward."""
+
     queryset = Reward.objects.all()
     serializer_class = RewardSerializer
     pagination_class = CustomPagination
@@ -46,6 +47,7 @@ class RewardViewSet(ModelViewSet):
 
 class RewardReadOnlyViewSet(ReadOnlyModelViewSet):
     """Вьюсет только для просмотра модели Reward."""
+
     queryset = Reward.objects.filter(is_public=True)
     serializer_class = RewardSerializer
     pagination_class = CustomPagination
@@ -53,6 +55,7 @@ class RewardReadOnlyViewSet(ReadOnlyModelViewSet):
 
 class HabitViewSet(ModelViewSet):
     """Вьюсет для работы с моделью Habit."""
+
     queryset = Habit.objects.all()
     serializer_class = HabitSerializer
     pagination_class = CustomPagination
@@ -87,6 +90,7 @@ class HabitViewSet(ModelViewSet):
 
 class HabitReadOnlyViewSet(ReadOnlyModelViewSet):
     """Вьюсет только для просмотра модели Habit."""
+
     queryset = Habit.objects.filter(is_public=True)
     serializer_class = HabitSerializer
     pagination_class = CustomPagination

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from habit.models import Condition, Reward, Habit
+from habit.models import Condition, Habit, Reward
 
 
 @admin.register(Condition)

@@ -1,10 +1,10 @@
+from datetime import timedelta
+
 from celery import shared_task
+from django.utils import timezone
 
 from habit.models import Habit
 from habit.services import send_telegram_message
-
-from datetime import timedelta
-from django.utils import timezone
 
 CURRENT_TIME = timezone.now()
 
@@ -24,5 +24,7 @@ def send_reminder_to_telegram():
             habit.next_sending = CURRENT_TIME
         elif habit.next_sending < CURRENT_TIME:
             send_telegram_message(message, tg_chat_id)
-            habit.next_sending = CURRENT_TIME + timedelta(days=habit.condition.frequency)
+            habit.next_sending = CURRENT_TIME + timedelta(
+                days=habit.condition.frequency
+            )
         habit.save()
