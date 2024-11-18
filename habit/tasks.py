@@ -15,7 +15,7 @@ def send_reminder_to_telegram():
     habits = Habit.objects.filter(owner__isnull=False)
     for habit in habits:
         tg_chat_id = habit.owner.tg_chat_id
-        message = f"Привет, тебе сегодня нужно"
+        message = "Привет, тебе сегодня нужно"
         message += f"\n\nСделать: {habit.name}"
         message += f"\nГде: {habit.condition.place}"
         message += f"\nКогда: {habit.condition.start_time}"
