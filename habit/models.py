@@ -65,9 +65,9 @@ class Reward(models.Model):
 class Habit(models.Model):
     """Класс для описания модели Habit."""
 
-    name = models.CharField(max_length=150, verbose_name="Название полезной привычки")
+    name = models.CharField(max_length=150, verbose_name="Название привычки")
     description = models.TextField(
-        verbose_name="Описание полезной привычки", **NULLABLE
+        verbose_name="Описание привычки", **NULLABLE
     )
     preview = models.ImageField(
         upload_to="habits/previews", verbose_name="Превью (картинка)", **NULLABLE
